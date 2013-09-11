@@ -6,16 +6,18 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
   
 public class MyGLRenderer implements GLSurfaceView.Renderer {
+	  
+	private Cube cube;    
+	private static float angleCube = 0;    // Rotational angle in degree for cube (NEW)
+	private static float speedCube = -5.5f;   // Rotational speed for cube (NEW)
+	   
    
-   Triangle triangle;     // ( NEW )
-   Square quad;           // ( NEW )
-   
-   // Constructor
+	
+	// Constructor
    public MyGLRenderer(Context context) 
    {
       // Set up the data-array buffers for these shapes ( NEW )
-      triangle = new Triangle();   // ( NEW )
-      quad = new Square();         // ( NEW )
+	   cube = new Cube();   
    }
 
    // Call back when the surface is first created or re-created.
@@ -65,10 +67,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
   
       gl.glLoadIdentity();                 // Reset model-view matrix ( NEW )
       gl.glTranslatef(-1.5f, 0.0f, -6.0f); // Translate left and into the screen ( NEW )
-      triangle.draw(gl);                   // Draw triangle ( NEW )
+      gl.glScalef(0.8f, 0.8f, 0.8f);      // Scale down (NEW)
+      gl.glRotatef(angleCube, 1.0f, 1.0f, 1.0f); // rotate about the axis (1,1,1) (NEW)
+      cube.draw(gl);                      // Draw the cube (NEW)
   
       // Translate right, relative to the previous translation ( NEW )
-      gl.glTranslatef(3.0f, 0.0f, 0.0f);
-      quad.draw(gl);                       // Draw quad ( NEW )
-   }
+      angleCube += speedCube;         // (NEW)
+      }
 }
