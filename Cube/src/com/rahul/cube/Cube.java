@@ -17,7 +17,7 @@ public class Cube {
       {1.0f, 0.0f, 0.0f, 1.0f},  // 4. red
       {1.0f, 1.0f, 0.0f, 1.0f}   // 5. yellow
    };
-  
+     
    private float[] vertices = {  // Vertices of the 6 faces
       // FRONT
       -1.0f, -1.0f,  1.0f,  // 0. left-bottom-front
@@ -63,7 +63,7 @@ public class Cube {
   
    // Draw the shape
    public void draw(GL10 gl) {
-      gl.glFrontFace(GL10.GL_CW);    // Front face in counter-clockwise orientation
+      gl.glFrontFace(GL10.GL_CCW);    // Front face in counter-clockwise orientation
       gl.glEnable(GL10.GL_CULL_FACE); // Enable cull face
       gl.glCullFace(GL10.GL_BACK);    // Cull the back face (don't display)
   

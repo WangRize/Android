@@ -13,9 +13,8 @@ public class MainActivity extends Activity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
-      glView.setRenderer(new MyGLRenderer(this)); // Use a custom renderer
-      this.setContentView(glView);                // This activity sets to GLSurfaceView
+      glView = new MyGLSurfaceView(this);
+      setContentView(glView);  // Set View (NEW)              // This activity sets to GLSurfaceView
    }
    
    // Call back when the activity is going into the background

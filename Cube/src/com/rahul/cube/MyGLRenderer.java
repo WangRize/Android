@@ -4,20 +4,31 @@ import javax.microedition.khronos.opengles.GL10;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
+//import android.os.SystemClock;
   
-public class MyGLRenderer implements GLSurfaceView.Renderer {
+public class MyGLRenderer implements MyGLSurfaceView.Renderer {
 	  
-	private Cube cube;    
-	private static float angleCube = 0;    // Rotational angle in degree for cube (NEW)
-	private static float speedCube = -5.5f;   // Rotational speed for cube (NEW)
+	private Cube cube;   
+	// For controlling cube's z-position, x and y angles and speeds (NEW)
+	   float angleX = 0;   // (NEW)
+	   float angleY = 0;   // (NEW)
+	   float angleZ = 0;
+	   float speedX = 0;   // (NEW)
+	   float speedY = 0;   // (NEW)
+	   float speedZ=  0;
+	   float z = -6.0f;    // (NEW)
 	   
-   
-	
+	   private Triangle triangle; 
+	    // Rotational angle in degree for cube (NEW)
+	//private static float speedCube = -10.f;   // Rotational speed for cube (NEW)
+		
 	// Constructor
    public MyGLRenderer(Context context) 
    {
       // Set up the data-array buffers for these shapes ( NEW )
 	   cube = new Cube();   
+	   triangle = new Triangle();  
+	   
    }
 
    // Call back when the surface is first created or re-created.
@@ -52,7 +63,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 	      gl.glLoadIdentity();                 // Reset projection matrix
 	      // Use perspective projection
 	      GLU.gluPerspective(gl, 45, aspect, 0.1f, 100.f);
-	  
+	      
 	      gl.glMatrixMode(GL10.GL_MODELVIEW);  // Select model-view matrix
 	      gl.glLoadIdentity();                 // Reset
       
@@ -66,12 +77,26 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
       gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
   
       gl.glLoadIdentity();                 // Reset model-view matrix ( NEW )
-      gl.glTranslatef(-1.5f, 0.0f, -6.0f); // Translate left and into the screen ( NEW )
-      gl.glScalef(0.8f, 0.8f, 0.8f);      // Scale down (NEW)
-      gl.glRotatef(angleCube, 1.0f, 1.0f, 1.0f); // rotate about the axis (1,1,1) (NEW)
-      cube.draw(gl);                      // Draw the cube (NEW)
+      gl.glTranslatef(0.0f, 0.0f, z);   // Translate into the screen (NEW)
+      gl.glRotatef(angleX, 1.0f, 0.0f, 0.0f); // Rotate (NEW)
+      gl.glRotatef(angleY, 0.0f, 1.0f, 0.0f); // Rotate (NEW)
+      gl.glRotatef(angleZ, 0.0f, 0.0f, 1.0f); // Rotate(NEW)
+      
+      cube.draw(gl);
+      
+      gl.glLoadIdentity();
+      gl.glTranslatef(-1.0f, 0.0f, -6.0f);
+      
+      triangle.draw(gl); 
+      //long time = SystemClock.uptimeMillis()%4000L;
+      angleX += speedX;  // (NEW)
+      angleY += speedY;  // (NEW)
+      angleZ += speedZ;
+  //	GLU.gluLookAt(gl, 0, 0, -5, 0, 0, 0, 0, 2f, 0);
+      //gl.glRotatef(angleCube*2, 1.5f, 1.8f, 0.0f); // rotate about the axis (1,1,1) (NEW)
+      //cube.draw(gl);                      // Draw the cube (NEW)
   
       // Translate right, relative to the previous translation ( NEW )
-      angleCube += speedCube;         // (NEW)
+      //angleCube += speedCube;         // (NEW)
       }
 }

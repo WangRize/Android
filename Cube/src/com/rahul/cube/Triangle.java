@@ -13,9 +13,9 @@ public class Triangle {
    private FloatBuffer colorBuffer;
    
    private float[] vertices = {  // Vertices of the triangle
-       0.0f,  1.0f, 0.0f, // 0. top
-      -1.0f, -1.0f, 0.0f, // 1. left-bottom
-       1.0f, -1.0f, 0.0f  // 2. right-bottom
+       0.0f,  0.0f, 0.0f, // 0. top
+       1.0f, 0.0f, 0.0f, // 1. left-bottom
+       0.0f, 1.0f, 0.0f  // 2. right-bottom
    };
    private byte[] indices = { 0, 1, 2 }; // Indices to above vertices (in CCW)
  
@@ -33,7 +33,7 @@ public class Triangle {
       vbb.order(ByteOrder.nativeOrder()); // Use native byte order
       vertexBuffer = vbb.asFloatBuffer(); // Convert byte buffer to float
       vertexBuffer.put(vertices);         // Copy data into buffer
-      vertexBuffer.position(0);           // Rewind
+      vertexBuffer.position(4);           // Rewind
     
       // Setup color-array buffer. Colors in float. A float has 4 bytes (NEW)
       ByteBuffer cbb = ByteBuffer.allocateDirect(colors.length * 4);
